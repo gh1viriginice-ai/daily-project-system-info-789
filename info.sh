@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "=== System Info ==="
+echo "Hostname: $(hostname)"
+echo "OS: $(cat /etc/os-release 2>/dev/null | grep PRETTY_NAME | cut -d\" -f2)"
+echo "Kernel: $(uname -r)"
+echo "CPU: $(lscpu 2>/dev/null | grep "Model name" | cut -d: -f2 | xargs)"
+echo "RAM: $(free -h 2>/dev/null | awk '/Mem:/{print $2}')"
+echo "Disk: $(df -h / | awk "NR==2{print \$3"/"\$2" ("\$5" used)"}")"
+echo "Uptime: $(uptime -p 2>/dev/null || uptime)"
+echo "IP: $(hostname -I 2>/dev/null | awk "{print \$1}")"
